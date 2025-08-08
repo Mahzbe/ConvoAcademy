@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convo Academy</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0; padding: 0;
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+        color: white;
+        text-align: center;
+    }
+    header {
+        padding: 20px;
+        background: rgba(0,0,0,0.2);
+    }
+    h1 {
+        font-size: 2.5em;
+    }
+    .cta-btn {
+        background: #ff9800;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        color: white;
+        cursor: pointer;
+        border-radius: 8px;
+        margin-top: 20px;
+        transition: background 0.3s;
+    }
+    .cta-btn:hover {
+        background: #e68900;
+    }
+    section {
+        padding: 40px 20px;
+    }
+    .module {
+        background: rgba(255,255,255,0.1);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+    }
+    input {
+        padding: 10px;
+        font-size: 1em;
+        border-radius: 6px;
+        border: none;
+    }
+    .hidden {
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Welcome to Convo Academy</h1>
+    <p>Learn HTML, CSS, and JavaScript — in a fun way for kids!</p>
+</header>
+
+<section id="loginSection">
+    <h2>Login with Your Code</h2>
+    <input type="text" id="accessCode" placeholder="Enter your code">
+    <button class="cta-btn" onclick="login()">Enter</button>
+</section>
+
+<section id="modulesSection" class="hidden">
+    <h2>Learning Modules</h2>
+    <div class="module">Module 1: Introduction to HTML</div>
+    <div class="module">Module 2: Styling with CSS</div>
+    <div class="module">Module 3: JavaScript Basics</div>
+    <button class="cta-btn" onclick="finishCourse()">Finish & Download Certificate</button>
+</section>
+
+<section id="certificateSection" class="hidden">
+    <h2>Congratulations!</h2>
+    <p>You have completed the course.</p>
+    <a class="cta-btn" href="certificate.pdf" download>Download Certificate</a>
+</section>
+
+<script>
+    let validCode = "ABC123"; // Example temp code
+
+    function login() {
+        let code = document.getElementById("accessCode").value;
+        if(code === validCode){
+            document.getElementById("loginSection").classList.add("hidden");
+            document.getElementById("modulesSection").classList.remove("hidden");
+        } else {
+            alert("Invalid code. Try again!");
+        }
+    }
+
+    function finishCourse() {
+        document.getElementById("modulesSection").classList.add("hidden");
+        document.getElementById("certificateSection").classList.remove("hidden");
+        validCode = null; // expires the code
+    }
+</script>
+
+</body>
+</html>
