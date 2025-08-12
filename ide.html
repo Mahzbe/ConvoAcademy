@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Simple IDE with Resources</title>
+<title>Simple IDE with Resources and Lessons</title>
 <style>
 body { font-family: sans-serif; padding: 10px; background: #f0f0f0; }
 textarea { width: 100%; height: 300px; font-family: monospace; font-size: 14px; }
@@ -10,6 +10,32 @@ button { margin: 10px 5px 10px 0; padding: 8px 12px; font-weight: bold; cursor: 
 iframe { width: 100%; height: 300px; border: 1px solid #ccc; background: white; }
 #resources { margin-top: 20px; background: white; padding: 10px; border-radius: 5px; }
 audio { width: 100%; margin-top: 10px; }
+
+/* Lesson Buttons */
+.lesson-btn {
+  width: 100%;
+  background: #66a6ff;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.lesson-btn:hover {
+  background: #4a7ed1;
+}
+.lesson-content {
+  background: #e6f0ff;
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  color: #003366;
+  display: none;
+}
 </style>
 </head>
 <body>
@@ -34,6 +60,24 @@ audio { width: 100%; margin-top: 10px; }
     <source src="lesson.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
+
+  <h2>Text Lessons for Kids</h2>
+  <div id="lessons">
+    <button class="lesson-btn" onclick="toggleLesson(1)">1. What is HTML?</button>
+    <div class="lesson-content" id="lesson1">
+      <p>HTML is like the skeleton of a webpage. It tells the computer what parts go where!</p>
+    </div>
+
+    <button class="lesson-btn" onclick="toggleLesson(2)">2. What is CSS?</button>
+    <div class="lesson-content" id="lesson2">
+      <p>CSS is like the clothes and colors for the webpage. It makes everything look nice and pretty.</p>
+    </div>
+
+    <button class="lesson-btn" onclick="toggleLesson(3)">3. What is JavaScript?</button>
+    <div class="lesson-content" id="lesson3">
+      <p>JavaScript is the magic that makes webpages do cool things, like buttons you can click!</p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -43,6 +87,15 @@ function runCode() {
     preview.open();
     preview.write(code);
     preview.close();
+}
+
+function toggleLesson(num) {
+    const content = document.getElementById('lesson' + num);
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
+    } else {
+      content.style.display = 'block';
+    }
 }
 </script>
 
