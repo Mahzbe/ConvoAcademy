@@ -15,7 +15,6 @@
         min-height: 100vh;
         padding: 20px;
     }
-
     .container {
         background: white;
         border-radius: 20px;
@@ -26,23 +25,12 @@
         text-align: center;
         animation: fadeIn 0.8s ease-in-out;
     }
-
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
     }
-
-    h1 {
-        color: #ff6b6b;
-        margin-bottom: 10px;
-    }
-
-    p {
-        color: #555;
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
+    h1 { color: #ff6b6b; margin-bottom: 10px; }
+    p { color: #555; font-size: 14px; margin-bottom: 20px; }
     input {
         width: 85%;
         padding: 12px;
@@ -53,12 +41,10 @@
         outline: none;
         text-align: center;
     }
-
     input:focus {
         border-color: #ff6b6b;
         box-shadow: 0 0 5px rgba(255,107,107,0.6);
     }
-
     button {
         width: 90%;
         padding: 12px;
@@ -72,23 +58,19 @@
         margin-top: 5px;
         transition: transform 0.2s, background 0.3s;
     }
-
     button:hover {
         transform: scale(1.05);
         background: linear-gradient(135deg, #ff5252, #ffb347);
     }
-
     .message {
         min-height: 20px;
         font-weight: bold;
         margin-top: 10px;
     }
-
     .divider {
         margin: 20px 0;
         border-top: 2px dashed #ffcc70;
     }
-
     .footer {
         font-size: 12px;
         margin-top: 20px;
@@ -122,7 +104,17 @@
 </div>
 
 <script>
-function register() {
+// SHA-256 hashing function using SubtleCrypto
+async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+async function register() {
     const username = document.getElementById('regUser').value.trim();
     const password = document.getElementById('regPass').value.trim();
     const regMsg = document.getElementById('registerMessage');
@@ -137,13 +129,14 @@ function register() {
         regMsg.textContent = "Username already exists.";
         regMsg.style.color = "red";
     } else {
-        localStorage.setItem(username, password);
+        const hashedPass = await hashPassword(password);
+        localStorage.setItem(username, hashedPass);
         regMsg.textContent = "Registration successful! You can now log in.";
         regMsg.style.color = "green";
     }
 }
 
-function login() {
+async function login() {
     const username = document.getElementById('loginUser').value.trim();
     const password = document.getElementById('loginPass').value.trim();
     const loginMsg = document.getElementById('loginMessage');
@@ -154,8 +147,10 @@ function login() {
         return;
     }
 
-    const storedPass = localStorage.getItem(username);
-    if (storedPass && storedPass === password) {
+    const storedHash = localStorage.getItem(username);
+    const hashedPass = await hashPassword(password);
+
+    if (storedHash && storedHash === hashedPass) {
         loginMsg.textContent = "Login successful! Redirecting...";
         loginMsg.style.color = "green";
         setTimeout(() => {
