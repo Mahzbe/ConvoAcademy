@@ -1,246 +1,171 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Convo Academy Landing Page</title>
-  <style>
-    /* Basic Reset */
-    * {
-      box-sizing: border-box;
-    }
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Convo Academy - Login & Register</title>
+<style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
+        margin: 0;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        background: linear-gradient(135deg, #ffcc70, #ff8c70);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
     }
 
-    header {
-      margin-bottom: 2rem;
+    .container {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        text-align: center;
+        animation: fadeIn 0.8s ease-in-out;
     }
 
-    header h1 {
-      font-size: 3rem;
-      margin: 0.2rem 0;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
-    header p {
-      font-size: 1.25rem;
-      margin: 0;
-      font-weight: 300;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    h1 {
+        color: #ff6b6b;
+        margin-bottom: 10px;
     }
 
-    section {
-      max-width: 600px;
-      margin-bottom: 3rem;
-      padding: 0 15px;
+    p {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 20px;
     }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      border-bottom: 2px solid #ffcc33;
-      display: inline-block;
-      padding-bottom: 0.25rem;
-      color: #ffcc33;
+    input {
+        width: 85%;
+        padding: 12px;
+        border-radius: 30px;
+        border: 2px solid #ffd36b;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        outline: none;
+        text-align: center;
     }
 
-    ul {
-      text-align: left;
-      padding-left: 20px;
-      margin-top: 0;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      line-height: 1.5;
-      list-style: none;
+    input:focus {
+        border-color: #ff6b6b;
+        box-shadow: 0 0 5px rgba(255,107,107,0.6);
     }
 
-    ul li {
-      position: relative;
-      padding-left: 25px;
-      margin-bottom: 0.7rem;
+    button {
+        width: 90%;
+        padding: 12px;
+        border-radius: 30px;
+        border: none;
+        background: linear-gradient(135deg, #ff6b6b, #ffcc70);
+        color: white;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 5px;
+        transition: transform 0.2s, background 0.3s;
     }
 
-    ul li::before {
-      content: "✔";
-      position: absolute;
-      left: 0;
-      color: #ffcc33;
-      font-weight: bold;
-      font-size: 1.2rem;
-      line-height: 1;
+    button:hover {
+        transform: scale(1.05);
+        background: linear-gradient(135deg, #ff5252, #ffb347);
     }
 
-    /* CTA buttons */
-    .cta-btn {
-      background: #ffcc33;
-      border: none;
-      padding: 14px 40px;
-      font-size: 1.25rem;
-      font-weight: 600;
-      border-radius: 30px;
-      color: #000dff;
-      cursor: pointer;
-      box-shadow: 0 6px 10px rgba(255,204,51,0.5);
-      transition: background 0.3s ease, transform 0.2s ease;
-      margin: 0.7rem auto 0;
-      display: inline-block;
-      text-decoration: none;
+    .message {
+        min-height: 20px;
+        font-weight: bold;
+        margin-top: 10px;
     }
 
-    .cta-btn:hover,
-    .cta-btn:focus {
-      background: #e6b800;
-      transform: scale(1.05);
-      outline: none;
+    .divider {
+        margin: 20px 0;
+        border-top: 2px dashed #ffcc70;
     }
 
-    /* Login section styling */
-    #loginSection {
-      margin-top: 2rem;
+    .footer {
+        font-size: 12px;
+        margin-top: 20px;
+        color: #888;
     }
-
-    #loginSection input {
-      padding: 12px;
-      font-size: 1.1rem;
-      border-radius: 30px;
-      border: none;
-      width: 250px;
-      max-width: 90vw;
-      margin-right: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    }
-
-    #loginSection button {
-      padding: 12px 30px;
-      font-size: 1.1rem;
-      border-radius: 30px;
-      border: none;
-      background: #ffcc33;
-      color: #000dff;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(255,204,51,0.5);
-      transition: background 0.3s ease;
-    }
-
-    #loginSection button:hover {
-      background: #e6b800;
-    }
-
-    #loginMessage {
-      margin-top: 1rem;
-      font-weight: 600;
-      min-height: 1.2em;
-      color: #ffb74d;
-    }
-
-    footer {
-      margin-top: auto;
-      padding: 1rem 10px;
-      font-size: 0.85rem;
-      color: #ddd;
-      text-align: center;
-    }
-
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      h2 {
-        font-size: 1.5rem;
-      }
-      #loginSection input {
-        width: 70vw;
-        margin-bottom: 1rem;
-      }
-      #loginSection button {
-        width: 70vw;
-      }
-    }
-  </style>
+</style>
 </head>
 <body>
 
-<header>
-  <h1>Convo Academy</h1>
-  <p>Fun, fast, and beginner-friendly coding for kids, teens, and curious adults.</p>
-</header>
+<div class="container">
+    <h1>Convo Academy</h1>
+    <p>Welcome! Please log in or register to start learning.</p>
 
-<section>
-  <h2>Why Convo Academy?</h2>
-  <ul>
-    <li>No installs or downloads — code runs right in your browser.</li>
-    <li>Learn by doing — build real projects step-by-step.</li>
-    <li>Simple, conversational code language designed for beginners.</li>
-    <li>Earn certificates when you finish modules.</li>
-  </ul>
-</section>
+    <!-- LOGIN FORM -->
+    <h2>Login</h2>
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="loginMessage" class="message"></p>
 
-<section>
-  <h2>Who Is It For?</h2>
-  <ul>
-    <li>Kids curious about coding and tech.</li>
-    <li>Teens who want to build websites and games.</li>
-    <li>Teachers looking for easy-to-use classroom tools.</li>
-    <li>Parents who want fun, educational activities for their children.</li>
-  </ul>
-</section>
+    <div class="divider"></div>
 
-<section id="loginSection">
-  <h2>Login with Your Access Code</h2>
-  <input type="text" id="accessCode" placeholder="Enter your code here" aria-label="Access code input" />
-  <button onclick="login()">Enter</button>
-  <p id="loginMessage" role="alert" aria-live="polite"></p>
-  <p style="font-size:0.9rem; margin-top:0.5rem; color:#ddd;">
-    <strong>Example code to try:</strong> <code>TRY2025</code>
-  </p>
-</section>
+    <!-- REGISTER FORM -->
+    <h2>Register</h2>
+    <input type="text" id="regUser" placeholder="Choose a username">
+    <input type="password" id="regPass" placeholder="Choose a password">
+    <button onclick="register()">Register</button>
+    <p id="registerMessage" class="message"></p>
 
-<section style="margin-top: 3rem;">
-  <a href="ide.html" class="cta-btn" target="_blank" rel="noopener noreferrer">Try the IDE Without Login</a>
-</section>
-
-<footer>
-  &copy; 2025 Convo Academy — Connect. Grow. Illuminate.
-</footer>
+    <div class="footer">&copy; 2025 Convo Academy</div>
+</div>
 
 <script>
-  const validCodes = ['TRY2025']; // add more codes as needed
+function register() {
+    const username = document.getElementById('regUser').value.trim();
+    const password = document.getElementById('regPass').value.trim();
+    const regMsg = document.getElementById('registerMessage');
 
-  function login() {
-    const input = document.getElementById('accessCode');
-    const message = document.getElementById('loginMessage');
-    const code = input.value.trim().toUpperCase();
-
-    if (!code) {
-      message.textContent = "Please enter your access code.";
-      return;
+    if (!username || !password) {
+        regMsg.textContent = "Please fill in both fields.";
+        regMsg.style.color = "orange";
+        return;
     }
 
-    if (validCodes.includes(code)) {
-      message.style.color = "#b2ff59"; // greenish
-      message.textContent = "Access granted! Redirecting to the IDE...";
-      // Redirect after short delay
-      setTimeout(() => {
-        // You can change this URL to your actual IDE page
-        window.location.href = 'ide.html?code=' + encodeURIComponent(code);
-      }, 1200);
+    if (localStorage.getItem(username)) {
+        regMsg.textContent = "Username already exists.";
+        regMsg.style.color = "red";
     } else {
-      message.style.color = "#ff7043"; // reddish
-      message.textContent = "Invalid code. Please try again.";
+        localStorage.setItem(username, password);
+        regMsg.textContent = "Registration successful! You can now log in.";
+        regMsg.style.color = "green";
     }
-  }
+}
+
+function login() {
+    const username = document.getElementById('loginUser').value.trim();
+    const password = document.getElementById('loginPass').value.trim();
+    const loginMsg = document.getElementById('loginMessage');
+
+    if (!username || !password) {
+        loginMsg.textContent = "Please enter both username and password.";
+        loginMsg.style.color = "orange";
+        return;
+    }
+
+    const storedPass = localStorage.getItem(username);
+    if (storedPass && storedPass === password) {
+        loginMsg.textContent = "Login successful! Redirecting...";
+        loginMsg.style.color = "green";
+        setTimeout(() => {
+            window.location.href = 'ide.html';
+        }, 1000);
+    } else {
+        loginMsg.textContent = "Invalid username or password.";
+        loginMsg.style.color = "red";
+    }
+}
 </script>
 
 </body>
